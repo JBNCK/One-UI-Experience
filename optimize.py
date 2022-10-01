@@ -14,6 +14,11 @@ def set_commands():
         adb_command = "scripts/adb"
     else:
         adb_command = r".\scripts\adb.exe"
+    global apk_path
+    if platform == "linux" or platform == "linux2":
+        apk_path = "apks/"
+    else:
+        apk_path = r"apks\"
 
 
 set_commands()
@@ -440,11 +445,61 @@ def main_menu():
         os.system(f"{adb_command} shell pm install-existing com.sec.android.daemonapp")
         os.system(f"{adb_command} shell pm install-existing com.sec.android.app.clockpackage")
         os.system(f"{adb_command} shell pm install-existing com.samsung.klmsagent")
+        os.system(f"{adb_command} shell pm install-existing com.android.vending")
+        fortnite = input("Press ENTER to continue...")
     elif selection == 2:
         print("Google preset will be applied to your phone.")
-        print("Coming soon.")
+        os.system(f"{adb_command} shell pm install-existing com.sec.android.app.vepreload")
+        os.system(f"{adb_command} shell pm install-existing com.sec.android.app.camera")
+        os.system(f"{adb_command} shell pm install-existing com.sec.android.gallery3d")
+        os.system(f"{adb_command} shell pm install-existing com.sec.android.mimage.photoretouching")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.android.video")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.app.newtrim")
+        os.system(f"{adb_command} shell pm install-existing com.sec.hearingadjust")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.android.lool")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.android.app.galaxyfinder")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.android.allshare.service.mediashare")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.android.allshare.service.fileshare")
+        os.system(f"{adb_command} shell pm install-existing com.sec.android.app.soundalive")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.android.aircommandmanager")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.android.mdx.quickboard")
+        os.system(f"{adb_command} shell pm install-existing com.android.vending")
+        os.system(f"{adb_command} shell pm install-existing com.android.chrome")
+        os.system(f"{adb_command} shell pm install-existing com.google.android.apps.photos")
+        os.system(f"{adb_command} install {apk_path}g_clock.apk")
+        os.system(f"{adb_command} install {apk_path}g_calendar.apk")
+        os.system(f"{adb_command} install {apk_path}g_contacts.apk")
+        os.system(f"{adb_command} install {apk_path}g_dialer.apk")
+        os.system(f"{adb_command} install {apk_path}files.apk")
+        os.system(f"{adb_command} install {apk_path}gboard.apk")
+        os.system(f"{adb_command} install {apk_path}recorder.apk")
+        fortnite = input("Press ENTER to continue...")
     elif selection == 3:
         print("AOSP preset will be applied to your phone (note that it will still look like One UI)")
+        os.system(f"{adb_command} shell pm enable com.samsung.android.honeyboard")
+        os.system(f"{adb_command} shell pm install-existing com.sec.android.app.vepreload")
+        os.system(f"{adb_command} shell pm install-existing com.sec.android.app.camera")
+        os.system(f"{adb_command} shell pm install-existing com.sec.android.gallery3d")
+        os.system(f"{adb_command} shell pm install-existing com.sec.android.mimage.photoretouching")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.android.video")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.app.newtrim")
+        os.system(f"{adb_command} shell pm install-existing com.sec.hearingadjust")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.android.lool")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.android.app.galaxyfinder")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.android.allshare.service.mediashare")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.android.allshare.service.fileshare")
+        os.system(f"{adb_command} shell pm install-existing com.sec.android.app.soundalive")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.android.aircommandmanager")
+        os.system(f"{adb_command} shell pm install-existing com.samsung.android.mdx.quickboard")
+        os.system(f"{adb_command} install {apk_path}aosp_clock.apk")
+        os.system(f"{adb_command} install {apk_path}aosp_calendar.apk")
+        os.system(f"{adb_command} install {apk_path}aosp_contacts.apk")
+        os.system(f"{adb_command} install {apk_path}aosp_messages.apk")
+        os.system(f"{adb_command} install {apk_path}aosp_dialer.apk")
+        os.system(f"{adb_command} install {apk_path}files.apk")
+        os.system(f"{adb_command} install {apk_path}fdroid.apk")
+        os.system(f"{adb_command} install {apk_path}recorder.apk")
+        fortnite = input("Press ENTER to continue...")
     elif selection == 4:
         print("Nuking yo fuckin' phone")
         os.system(f"{adb_command} shell pm uninstall --user 0 com.samsung.aasaservice")
@@ -796,11 +851,13 @@ def main_menu():
         os.system(f"{adb_command} shell settings put global window_animation_scale 0.80")
         os.system(f"{adb_command} shell settings put global transition_animation_scale 0.90")
         os.system(f"{adb_command} shell settings put global animator_duration_scale 1.25")
+        fortnite = input("Press ENTER to continue...")
     elif selection == 5:
         print("Restoring updates...")
         os.system(f"{adb_command} shell pm install-existing com.wssyncmldm")
         os.system(f"{adb_command} shell pm install-existing com.sec.android.soagent")
         os.system(f"{adb_command} shell pm install-existing com.sec.android.systemupdate")
+        fortnite = input("Press ENTER to continue...")
     elif selection == 6:
         print("Restoring basic Android features...")
         os.system(f"{adb_command} shell pm install-existing com.android.bips")
@@ -809,22 +866,28 @@ def main_menu():
         os.system(f"{adb_command} shell pm install-existing com.android.nfc")
         os.system(f"{adb_command} shell pm install-existing com.android.dreams.basic")
         os.system(f"{adb_command} shell pm install-existing com.android.dreams.phototable")
+        fortnite = input("Press ENTER to continue...")
     elif selection == 7:
         print("Restoring play store (AOSP)...")
         os.system(f"{adb_command} shell pm install-existing com.android.vending")
+        fortnite = input("Press ENTER to continue...")
     elif selection == 8:
         print("Restoring Samsung account (AOSP, Google preset)...")
         os.system(f"{adb_command} shell pm install-existing com.osp.app.signin")
         os.system(f"{adb_command} shell pm install-existing com.samsung.klmsagent")
+        fortnite = input("Press ENTER to continue...")
     elif selection == 9:
         print("Restoring Samsung bloaware")
         print("Coming soon.")
+        fortnite = input("Press ENTER to continue...")
     elif selection == 10:
         to_restore = input("Enter a package to restore: ")
         os.system(f"{adb_command} shell pm install-existing {to_restore}")
+        fortnite = input("Press ENTER to continue...")
     elif selection == 11:
         to_remove = input("Enter a package to remove: ")
         os.system(f"{adb_command} shell pm uninstall --user 0 {to_remove}")
+        fortnite = input("Press ENTER to continue...")
     elif selection == 12:
         i = 0
     else:
