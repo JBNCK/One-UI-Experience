@@ -2,12 +2,17 @@
 import os
 from sys import platform
 
+#used to color WARNING yellow
+from termcolor import cprint
+
 def clear_screen():
     if platform == "linux" or platform == "linux2":
         os.system("clear")
     else:
         os.system("cls")
+
 adb_command = ""
+
 def set_commands():
     global adb_command
     if platform == "linux" or platform == "linux2":
@@ -18,8 +23,8 @@ def set_commands():
     if platform == "linux" or platform == "linux2":
         apk_path = "apks/"
     else:
-        apk_path = r"apks\"
-
+        # I took away the \ because it caused the string literal to be unterminated
+        apk_path = r"apks"
 
 set_commands()
 os.system(f"{adb_command} kill-server")
@@ -30,8 +35,12 @@ clear_screen()
 
 first_time_check = input("Are you running this script for the first time on this device? (Y/N): ")
 if first_time_check == "y" or first_time_check == "Y":
-    print("Make sure your data is backed up, the phone is factory reset and connected to the computer via a USB cable and USB debugging is enabled.")
-    input("Press ENTER to continue. This will start setting up your phone for the script (CTRL+C to cancel)...")
+    
+    cprint('WARNING:', 'yellow') 
+    cprint('Make sure your data is backed up, the phone is factory reset and connected to the computer via a USB cable and USB debugging is enabled.', "yellow")
+    
+    input("Press ENTER to continue. This will start preparing your phone for the script (CTRL+C to cancel)...")
+    
     os.system(f"{adb_command} shell pm uninstall --user 0 com.samsung.aasaservice")
     os.system(f"{adb_command} shell pm uninstall --user 0 com.google.android.setupwizard")
     os.system(f"{adb_command} shell pm uninstall --user 0 com.google.android.apps.restore")
@@ -376,6 +385,7 @@ if first_time_check == "y" or first_time_check == "Y":
     os.system(f"{adb_command} shell pm uninstall --user 0 com.sec.epdg")
     os.system(f"{adb_command} shell pm uninstall --user 0 com.samsung.cmh")
     os.system(f"{adb_command} shell pm uninstall --user 0 com.sec.hearingadjust")
+    
 elif first_time_check == "n" or first_time_check == "N":
     clear_screen()
 else:
@@ -385,23 +395,24 @@ else:
 def main_menu():
     clear_screen()
     global i
-    print("One UI Experience - Optimization tool for Samsung Phones running\nAndroid 11 or 12 by Jan Biernacik")
     print("-----------------------------------------------------------------------")
-    print("Main options:")
+    print("One UI Experience - Optimization tool for Samsung Phones running \n Android 11 or 12 by Jan Biernacik")
+    print("-----------------------------------------------------------------------")
+    cprint("Main options:", "red")
     print("[1] One UI Preset")
     print("[2] Google Preset (minimal)")
     print("[3] AOSP Preset (stockish android)")
-    print("Advanced options:")
-    print("[4] Fuckin kim jong un style debloat (you will be left with a settings app nothing else, just like the pre-setup preset.)")
+    cprint("Advanced options:", "red")
+    print("[4] Nuclear bomb debloat (you will be left with a settings app nothing else, just like the pre-setup preset.)")
     print("[5] Restore updates")
     print("[6] Restore basic Android features (printing, nfc, screen saver etc.)")
     print("[7] Restore Play Store (AOSP preset)")
     print("[8] Restore Samsung account (AOSP, Google preset)")
-    print("[8] Restore Samsung bloatware")
-    print("Other:")
+    print("[9] Restore Samsung bloatware")
+    cprint("Other:", "red")
     print("[10] Restore custom package")
     print("[11] Remove custom package")
-    print("Program:")
+    cprint("Program:", "red")
     print("[12] Exit")
 
     selection = int(input("\n\nPlease make a selection: "))
@@ -888,7 +899,7 @@ def main_menu():
         os.system(f"{adb_command} shell pm uninstall --user 0 {to_remove}")
         fortnite = input("Press ENTER to continue...")
     elif selection == 12:
-        i = 0
+        exit()
     else:
         print("Not a valid selection.")
         exit()
